@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">  
+  <title>top page</title>
+</head>
+<body class="container">
+  <h1 class="display-4 mb-4">Hello page</h1>
+  <p th:text="${msg}"></p>
+  <div th:switch="${month}">
+    <p class="alert alert-primary" th:case="1">
+      [[${month} + '月は、正月です。']]
+    </p>
+    <p class="alert alert-primary" th:case="2">
+      [[${month} + '月は、冬です。']]
+    </p>
+    <p class="alert alert-primary" th:case="3">
+      [[${month} + '月は、冬です。']]
+    </p>
+    <p class="alert alert-primary" th:case="4">
+      [[${month} + '月は、春です。']]
+    </p>
+    <p class="alert alert-primary" th:case="5">
+      [[${month} + '月は、春です。']]
+    </p>
+    <p class="alert alert-primary" th:case="6">
+      [[${month} + '月は、夏です。']]
+    </p>
+    <p class="alert alert-primary" th:case="7">
+      [[${month} + '月は、夏です。']]
+    </p>
+    <p class="alert alert-primary" th:case="8">
+      [[${month} + '月は、夏休みです。']]
+    </p>
+    <p class="alert alert-primary" th:case="9">
+      [[${month} + '月は、秋です。']]
+    </p>
+    <p class="alert alert-primary" th:case="10">
+      [[${month} + '月は、秋です。']]
+    </p>
+    <p class="alert alert-primary" th:case="11">
+      [[${month} + '月は、冬です。']]
+    </p>
+    <p class="alert alert-primary" th:case="12">
+      [[${month} + '月は、師走です。']]
+    </p>
+    <p class="alert alert-secondary" th:case="*">
+      その月はありません。
+    </p>
+  </div>
+  </div>
+</body>
+</html>

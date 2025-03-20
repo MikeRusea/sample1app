@@ -7,49 +7,41 @@
   <title>top page</title>
 </head>
 <body class="container">
-  <h1 class="display-4 mb-4">Hello page</h1>
+  <h1 class ="display-4 mb-4" th:text="${title}"></h1>
   <p th:text="${msg}"></p>
-  <div th:switch="${month}">
-    <p class="alert alert-primary" th:case="1">
-      [[${month} + '月は、正月です。']]
-    </p>
-    <p class="alert alert-primary" th:case="2">
-      [[${month} + '月は、冬です。']]
-    </p>
-    <p class="alert alert-primary" th:case="3">
-      [[${month} + '月は、冬です。']]
-    </p>
-    <p class="alert alert-primary" th:case="4">
-      [[${month} + '月は、春です。']]
-    </p>
-    <p class="alert alert-primary" th:case="5">
-      [[${month} + '月は、春です。']]
-    </p>
-    <p class="alert alert-primary" th:case="6">
-      [[${month} + '月は、夏です。']]
-    </p>
-    <p class="alert alert-primary" th:case="7">
-      [[${month} + '月は、夏です。']]
-    </p>
-    <p class="alert alert-primary" th:case="8">
-      [[${month} + '月は、夏休みです。']]
-    </p>
-    <p class="alert alert-primary" th:case="9">
-      [[${month} + '月は、秋です。']]
-    </p>
-    <p class="alert alert-primary" th:case="10">
-      [[${month} + '月は、秋です。']]
-    </p>
-    <p class="alert alert-primary" th:case="11">
-      [[${month} + '月は、冬です。']]
-    </p>
-    <p class="alert alert-primary" th:case="12">
-      [[${month} + '月は、師走です。']]
-    </p>
-    <p class="alert alert-secondary" th:case="*">
-      その月はありません。
-    </p>
-  </div>
-  </div>
+
+  <form method="post" action="/" th:object="${formModel}">
+    <div class="mb-3">
+      <label for="name" class="form-label">Name</label>
+      <input type="text" class="form-control" name="name" th:value="*{name}" />
+    </div>
+    <div class="mb-3">
+      <label for="mail" class="form-label">Mail</label >
+      <input type="text" class="form-control" name="mail" th:value="*{mail}" />
+    </div>
+    <div class="mb-3">
+      <label for="age" class="form-label">Age</label>
+      <input type="number" class="form-control" name="age" th:value="*{age}" />
+    </div>
+    <div class="mb-3">
+      <label for="memo" class="form-label">Memo</label >
+      <textarea class="form-control" name="memo" th:text="*{memo}"></textarea>
+    </div>
+    <input type="submit" class="btn btn-primary" value="Create"/>
+  </form>
+
+  <table class="table">
+    <thead>
+      <tr><th>ID</th><th>Name</th><th>Mail</th><th>Age</th></tr>
+    </thead>
+    <tbody>
+      <tr th:each="item: ${data}">
+        <td th:text="${item.id}"></td>
+        <td th:text="${item.name}"></td>
+        <td th:text="${item.mail}"></td>
+        <td th:text="${item.age}"></td>
+      </tr>
+    </tbody>
+  </table>
 </body>
 </html>

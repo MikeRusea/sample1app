@@ -11,12 +11,15 @@
   <p th:text="${msg}"></p>
 
   <form method="post" action="/" th:object="${formModel}">
+    <ul th:if="${errors != null}">
+      <li th:each="error : ${errors}" class="text text-danger" th:text="${error.defaultMessage}"></li>
+    </ul>
     <div class="mb-3">
       <label for="name" class="form-label">Name</label>
       <input type="text" class="form-control" name="name" th:value="*{name}" />
     </div>
     <div class="mb-3">
-      <label for="mail" class="form-label">Mail</label >
+      <label for="name" class="form-label">Mail</label >
       <input type="text" class="form-control" name="mail" th:value="*{mail}" />
     </div>
     <div class="mb-3">

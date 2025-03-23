@@ -13,7 +13,7 @@ public class Person {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   @Column
-  private long id;
+  private Long id;
 
   @Column(length = 50, nullable = false)
   private String name;
@@ -27,10 +27,10 @@ public class Person {
   @Column(nullable = true)
   private String memo;
 
-  public long getId(){
+  public Long getId(){
     return id;
   }
-  public void setid(long id){
+  public void setId(Long id){
     this.id = id;
   }
 
@@ -44,7 +44,7 @@ public class Person {
   public String getMail(){
     return mail;
   }
-  public void setMail(){
+  public void setMail(String mail){
     this.mail = mail;
   }
 
@@ -56,9 +56,9 @@ public class Person {
   }
 
   public String getMemo(){
-    return mail;
+    return memo;
   }
-  public void setMemo(){
+  public void setMemo(String memo){
     this.memo = memo;
   }
 

@@ -2,7 +2,7 @@ package com.example.sample1app;
 
 import java.util.List;
 import java.util.Optional;
-
+    
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +22,7 @@ import jakarta.annotation.PostConstruct;
 import com.example.sample1app.repositories.PersonRepository;
 
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 
 @Controller
 public class HelloController {
@@ -41,25 +42,26 @@ public class HelloController {
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
     // @Transactional
-    public ModelAndView form(@ModelAttribute("formModel") @Validated Person person, BindingResult result, ModelAndView mav) {
-      ModelAndView res;
-      System.out.println(result.getFieldErrors());  // デバッグ用
-      if (!result.hasErrors()) {
-          repository.saveAndFlush(person);
-          res = new ModelAndView("redirect:/");
-      } else {
-          mav.setViewName("index");
-          mav.addObject("title", "Hello page");
-          mav.addObject("msg", "sorry, error is occurred...");
-          mav.addObject("errors", result.getFieldErrors()); // ★エラー情報を追加
-          Iterable<Person> list = repository.findAll();
-          mav.addObject("data", list);
-          res = mav;
-      }
-      return res;
-  }
+    public ModelAndView form(@ModelAttribute("formModel") @Valid @Validated Person person, BindingResult result,
+            ModelAndView mav) {
+        ModelAndView res;
+        System.out.println(result.getFieldErrors()); // デバッグ用
+        if (!result.hasErrors()) {
+            repository.saveAndFlush(person);
+            res = new ModelAndView("redirect:/");
+        } else {
+            mav.setViewName("index");
+            mav.addObject("title", "Hello page");
+            mav.addObject("msg", "sorry, error is occurred...");
+            mav.addObject("errors", result.getFieldErrors()); // ★エラー情報を追加
+            Iterable<Person> list = repository.findAll();
+            mav.addObject("data", list);
+            res = mav;
+        }
+        return res;
+    }
 
-    //編集
+    // 編集
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
     public ModelAndView edit(@ModelAttribute Person person, @PathVariable Long id, ModelAndView mav) {
         mav.setViewName("edit");
@@ -82,27 +84,25 @@ public class HelloController {
         return new ModelAndView("redirect:/"); // 一覧画面にリダイレクト
     }
 
-
-    //削除
+    // 削除
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
-    public ModelAndView delete(@PathVariable Long id, ModelAndView mav){
-      mav.setViewName("delete");
-      mav.addObject("title", "Delete Person");
-      mav.addObject("msg", "Can I delete this record?");
-      Optional<Person> data = repository.findById((long)id);
-      mav.addObject("formModel", data.get());
-      return mav;
+    public ModelAndView delete(@PathVariable Long id, ModelAndView mav) {
+        mav.setViewName("delete");
+        mav.addObject("title", "Delete Person");
+        mav.addObject("msg", "Can I delete this record?");
+        Optional<Person> data = repository.findById((long) id);
+        mav.addObject("formModel", data.get());
+        return mav;
     }
 
-    @RequestMapping(value = "/delete", method=RequestMethod.POST)
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
     @Transactional
     public ModelAndView remove(@RequestParam long id, ModelAndView mav) {
-      repository.deleteById(id);
-      return new ModelAndView("redirect:/");
+        repository.deleteById(id);
+        return new ModelAndView("redirect:/");
     }
-    
 
-    //初期値
+    // 初期値
     @PostConstruct
     public void init() {
         Person p1 = new Person();
@@ -124,10 +124,10 @@ public class HelloController {
         repository.save(p3);
     }
 
-      // @RestController
-      // public class TestController {
-      // @GetMapping("/test")
-      // public String test() {
-      //     return "Hello, World!";
-      // }
+    // @RestController
+    // public class TestController {
+    // @GetMapping("/test")
+    // public String test() {
+    // return "Hello, World!";
+    // }
 }

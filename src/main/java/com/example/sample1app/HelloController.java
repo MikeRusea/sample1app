@@ -103,7 +103,7 @@ public class HelloController {
     }
 
     // 初期値
-    @PostConstruct
+    // @PostConstruct
     public void init() {
         Person p1 = new Person();
         p1.setName("taro");
